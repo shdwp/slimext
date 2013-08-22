@@ -1,0 +1,28 @@
+{
+    "name": "shadowprince/slimext",
+    "type": "library",
+    "description": "Addon for Slim microframework, adding component and routes prefix support ",
+    "keywords": ["slim", "microframework", "addon"],
+    "homepage": "http://shadowprince.github.com/slimext",
+    "support": {
+        "source": "https://github.com/shadowprince/slimext"
+    },
+    "authors": [
+        {
+            "name": "Vasiliy Horbachenko",
+            "email": "shadow.prince@ya.ru",
+            "homepage": "http://shadowprince.ru",
+            "role": "Developer"
+        }
+    ],
+    "license": [
+        "BSD"
+    ],
+    "require": {
+        "php": ">=5.2.0",
+        "slim/slim": "2.*"
+    },
+    "autoload": {
+        {"SlimExt": "."}
+    }
+}
