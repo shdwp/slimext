@@ -1,6 +1,9 @@
 <?php
 namespace SlimExt;
 
+/**
+ * Simple twig view
+ */
 class SlimTwigView extends \Slim\View {
     protected $loader;
     protected $twig;
