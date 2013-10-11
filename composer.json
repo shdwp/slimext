@@ -23,6 +23,6 @@
         "slim/slim": "2.3.0"
     },
     "autoload": {
-        {"SlimExt": "."}
+        "psr-0": {"SlimExt": "."}
     }
 }
