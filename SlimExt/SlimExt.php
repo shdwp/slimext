@@ -1,4 +1,13 @@
 <?php
+/**
+ * SlimExt
+ *
+ * @author Vasiliy Horbachenko <shadow.prince@ya.ru>
+ * @copyright 2013 Vasiliy Horbachenko
+ * @version 1.0
+ * @package shadowprince/slimext
+ *
+ */
 namespace SlimExt;
 
 class SlimExt extends \Slim\Slim {
