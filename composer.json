@@ -1,7 +1,7 @@
 {
     "name": "shadowprince/slimext",
     "type": "library",
-    "description": "Addon for Slim microframework, adding component and routes prefix support ",
+    "description": "Addon for Slim microframework, adding components and routes prefix support ",
     "keywords": ["slim", "microframework", "addon"],
     "homepage": "http://shadowprince.github.com/slimext",
     "support": {
@@ -20,7 +20,7 @@
     ],
     "require": {
         "php": ">=5.2.0",
-        "slim/slim": "2.*"
+        "slim/slim": "2.3.0"
     },
     "autoload": {
         {"SlimExt": "."}

@@ -2,14 +2,24 @@
 namespace SlimExt;
 
 class SlimExt extends \Slim\Slim {
-    protected $router_prefix = null;
+    protected $router_prefix = array();
+    protected $router_middlewares = array();
 
     protected function applyPrefix() {
         $args = func_get_args();
-        if ($this->router_prefix != null) { 
-            $args[0] = $this->router_prefix . $args[0];
+        $pattern = array_shift($args);
+        $callback = array_pop($args);
+        $mwares = $args;
+
+        if (count($this->router_prefix)) {
+            $pattern = implode("", $this->router_prefix) . $pattern;
         }
-        return $args;
+        if (count($this->router_middlewares)) {
+            $mwares = array_merge($this->router_middlewares, $mwares);
+        }
+
+        \L::info(sprintf("Registered route: pattern = %s, mwares = %d", $pattern, count($mwares)));
+        return array_merge(array($pattern), $mwares, array($callback));
     }
 
     public function get() {
@@ -24,13 +34,18 @@ class SlimExt extends \Slim\Slim {
 
     public function map() {
         return call_user_func_array("Parent::map", 
-            call_user_func_array([$this, "applyPrefix"], func_get_args()));
+            call_user_func_array([$this, "applyPrefix"], func_get_args()))
+            ->via(\Slim\Http\Request::METHOD_GET, \Slim\Http\Request::METHOD_POST);
     }
 
     public function prefix($prefix, $setups) {
-        $this->router_prefix = $prefix;
+        $args = func_get_args();
+        $this->router_prefix[] = array_shift($args);
+        $setups = array_pop($args);
+        $this->router_middlewares = array_merge($this->router_middlewares, $args);
         call_user_func($setups);
-        $this->router_prefix = null;
+        array_pop($this->router_prefix);
+        array_pop($this->router_middlewares);
     }
 
     public function register($name, $service, $setup=null) {
