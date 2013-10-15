@@ -11,6 +11,9 @@
 namespace SlimExt;
 
 class SlimService {
+    /**
+     * Provide default config
+     */
     public function defaultConfig($app, $config) {
         foreach ($config as $k=>$v) {
             if (!$app->config($k))

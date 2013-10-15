@@ -51,17 +51,17 @@ class SlimExt extends \Slim\Slim {
 
     /**
      * Get component resource located on $path.
-     * For example model classes: Component.ModelClass.
+     * For example model classes: Component.ModelClass
      * @param string
      * @return mixed
      */
     public function getCC($path) {
         if (strpos($path, "\\") === false) {
-            $path = explode('.', $path); // @TODO
+            $path = explode(".", $path); // @TODO
             if (count($path) == 2) {
                 $path = [
                     $path[0],
-                    'Model',
+                    "Model",
                     $path[1],
                     ]; 
             }
@@ -71,29 +71,36 @@ class SlimExt extends \Slim\Slim {
             return $path;
         }
     }
-    public function register($name, $service, $setup=null) {
-        $this->services[$name] = $service;
-        if ($setup !== null) {
-            call_user_func_array($setup, [$service]);
-        }
-    }
 
-
+    /**
+     * Load component located at $path (namespace directory)
+     * Loading component includes (so executes too) $path/urls.php,
+     * where routes registered at (there is variable $app).
+     *
+     * @param string
+     */
     public function loadComponent($path) {
         global $app;
-        $urls = $path . DIRECTORY_SEPARATOR . 'urls.php';
+        $urls = $path . DIRECTORY_SEPARATOR . "urls.php";
         if (is_file($urls)) {
             include_once $urls;
         }
     }
 
+    /**
+     * Load components from $app->config("comps")
+     */
     public function loadComponents() {
-        if (is_array($this->config('comps'))) 
-            foreach ($this->config('comps') as $comp) {
+        if (is_array($this->config("comps"))) 
+            foreach ($this->config("comps") as $comp) {
                 $this->loadComponent(realpath($comp));
             }
     }
 
+    /**
+     * Merge all current prefixes and middlewares to args
+     * @return array
+     */
     protected function applyPrefix() {
         $args = func_get_args();
         $pattern = array_shift($args);
