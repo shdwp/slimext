@@ -114,7 +114,6 @@ class SlimExt extends \Slim\Slim {
             $mwares = array_merge($this->router_middlewares, $mwares);
         }
 
-        \L::info(sprintf("Registered route: pattern = %s, mwares = %d", $pattern, count($mwares)));
         return array_merge(array($pattern), $mwares, array($callback));
     }
 
