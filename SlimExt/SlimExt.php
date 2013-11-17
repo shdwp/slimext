@@ -19,17 +19,17 @@ class SlimExt extends \Slim\Slim {
      */
     public function get() {
         return call_user_func_array("Parent::get", 
-            call_user_func_array([$this, "applyPrefix"], func_get_args()));
+            call_user_func_array(array($this, "applyPrefix"), func_get_args()));
     }
 
     public function post() {
         return call_user_func_array("Parent::post", 
-            call_user_func_array([$this, "applyPrefix"], func_get_args()));
+            call_user_func_array(array($this, "applyPrefix"), func_get_args()));
     }
 
     public function map() {
         return call_user_func_array("Parent::map", 
-            call_user_func_array([$this, "applyPrefix"], func_get_args()))
+            call_user_func_array(array($this, "applyPrefix"), func_get_args()))
             ->via(\Slim\Http\Request::METHOD_GET, \Slim\Http\Request::METHOD_POST);
     }
 
@@ -59,11 +59,11 @@ class SlimExt extends \Slim\Slim {
         if (strpos($path, "\\") === false) {
             $path = explode(".", $path); // @TODO
             if (count($path) == 2) {
-                $path = [
+                $path = array(
                     $path[0],
                     "Model",
                     $path[1],
-                    ]; 
+                ); 
             }
 
             return implode("\\", $path);
