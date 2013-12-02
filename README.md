@@ -10,14 +10,6 @@ $app->prefix("/uac", function () use ($app) {
     });
 });
 ```
-## Middleware
-```php
-$app->prefix("/admin", Midleware::userAdmin(), function () use ($app) {
-    // Routes registered with Middleware::userAdmin() middleware
-    $app->get("/", function () use ($app) {/* ... */});
-    $app->get("/users", function () use ($app) {/* ... */});
-});
-```
 or even
 ```php
 $app->prefix("/uac", Middleware::userLogged(), function () use ($app) {
@@ -30,6 +22,14 @@ $app->prefix("/uac", Middleware::userLogged(), function () use ($app) {
             $app->map("/edit/:id", function ($id) use ($app) {});
         });
     });
+});
+```
+## Middleware
+```php
+$app->prefix("/admin", Midleware::userAdmin(), function () use ($app) {
+    // Routes registered with Middleware::userAdmin() middleware
+    $app->get("/", function () use ($app) {/* ... */});
+    $app->get("/users", function () use ($app) {/* ... */});
 });
 ```
 ## Components
